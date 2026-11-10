@@ -1,0 +1,8 @@
+{
+  "name": "NarrativaU — Cátedra de Narrativa Bíblica",
+  "description": "Plataforma académica e histórica de vanguardia sobre narrativa bíblica en entornos universitarios. Desenterrando las capas del texto mediante scrollytelling editorial.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

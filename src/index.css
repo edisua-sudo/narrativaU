@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-cinzel: 'Cinzel', serif;
+    --font-fraunces: 'Fraunces', 'Cormorant Garamond', serif;
+    --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --color-parchment: #F9F8F6;
+    --color-ink: #111111;
+    --color-gold: #B45309;
+    --color-terracotta: #C25E1A;
+  }
+
+  body {
+    font-family: var(--font-jakarta);
+    background-color: var(--color-parchment);
+    color: var(--color-ink);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif-title {
+    font-family: var(--font-fraunces);
+  }
+
+  .font-monument {
+    font-family: var(--font-cinzel);
+  }
+
+  .font-body {
+    font-family: var(--font-jakarta);
+  }
+}
+
+/* Subtle parchment paper grain overlay */
+.parchment-grain {
+  background-image: radial-gradient(rgba(180, 83, 9, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom noise overlay */
+.manuscript-texture {
+  background-color: #F9F8F6;
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(220, 190, 150, 0.12) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(180, 83, 9, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(245, 240, 230, 0.6) 0px, transparent 60%);
+}
+
+/* Clip-path reveals */
+.clip-hero-text {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+/* Hide scrollbar for horizontal containers while preserving scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Text glow / illumination for the torchlight lantern effect */
+.torchlight-wrapper {
+  position: relative;
+  user-select: none;
+}
+
+/* Smooth transition for magnetic buttons */
+.magnetic-btn {
+  will-change: transform;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
