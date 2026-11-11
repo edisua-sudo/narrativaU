@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
+/**
+ * [AWWWARDS CRITERION: CREATIVITY & MICRO-INTERACTIONS]
+ * Cursor personalizado cinemático con interpolación lineal (lerp) suave.
+ * Elimina por completo cualquier fuente monoespaciada y utiliza 'Plus Jakarta Sans'
+ * con tracking-widest para las etiquetas contextuales de interacción.
+ */
 export const CustomCursor: React.FC = () => {
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [targetPos, setTargetPos] = useState({ x: -100, y: -100 });
@@ -9,7 +15,6 @@ export const CustomCursor: React.FC = () => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    // Detect touch device
     if (window.matchMedia('(pointer: coarse)').matches) {
       setIsTouchDevice(true);
       return;
@@ -22,7 +27,9 @@ export const CustomCursor: React.FC = () => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
-      const interactiveEl = target.closest('a, button, [role="button"], input, select, textarea, [data-cursor]');
+      const interactiveEl = target.closest(
+        'a, button, [role="button"], input, select, textarea, [data-cursor]'
+      );
       if (interactiveEl) {
         setIsHovered(true);
         const customText = interactiveEl.getAttribute('data-cursor');
@@ -33,9 +40,7 @@ export const CustomCursor: React.FC = () => {
       }
     };
 
-    const onMouseLeave = () => {
-      setIsVisible(false);
-    };
+    const onMouseLeave = () => setIsVisible(false);
 
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     document.addEventListener('mouseleave', onMouseLeave);
@@ -46,15 +51,14 @@ export const CustomCursor: React.FC = () => {
     };
   }, [isVisible]);
 
-  // Smooth lerp follow
   useEffect(() => {
     if (isTouchDevice) return;
 
     let animId: number;
     const lerp = () => {
       setPos(prev => ({
-        x: prev.x + (targetPos.x - prev.x) * 0.2,
-        y: prev.y + (targetPos.y - prev.y) * 0.2,
+        x: prev.x + (targetPos.x - prev.x) * 0.22,
+        y: prev.y + (targetPos.y - prev.y) * 0.22,
       }));
       animId = requestAnimationFrame(lerp);
     };
@@ -74,24 +78,22 @@ export const CustomCursor: React.FC = () => {
       }}
       aria-hidden="true"
     >
-      {/* Outer ring */}
       <div
-        className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#111111] transition-all duration-300 ease-out flex items-center justify-center ${
+        className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-300 ease-out flex items-center justify-center ${
           isHovered
-            ? 'w-14 h-14 bg-[#111111]/10 backdrop-blur-xs scale-110 border-[#B45309]'
-            : 'w-8 h-8 opacity-60'
+            ? 'w-16 h-16 bg-[#005A9C]/15 dark:bg-[#38BDF8]/20 backdrop-blur-xs scale-110 border-[#005A9C] dark:border-[#38BDF8]'
+            : 'w-8 h-8 border-slate-900/40 dark:border-white/40 opacity-75'
         }`}
       >
         {cursorText && (
-          <span className="text-[9px] font-mono tracking-widest uppercase text-[#B45309] font-bold select-none">
+          <span className="text-[9px] font-body font-extrabold tracking-widest uppercase text-[#005A9C] dark:text-[#38BDF8] select-none">
             {cursorText}
           </span>
         )}
       </div>
 
-      {/* Center dot */}
       <div
-        className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#B45309] transition-transform duration-200 ${
+        className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#008A00] transition-transform duration-200 ${
           isHovered ? 'w-2 h-2 scale-150' : 'w-1.5 h-1.5'
         }`}
       />

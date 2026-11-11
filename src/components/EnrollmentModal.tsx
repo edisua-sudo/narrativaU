@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { validateEnrollment, EnrollmentData } from '../utils/textLayers';
-import { X, CheckCircle, GraduationCap, Calendar, Download, ShieldCheck } from 'lucide-react';
+import { X, CheckCircle, GraduationCap } from 'lucide-react';
 
 interface EnrollmentModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+/**
+ * [AWWWARDS CRITERION: USABILITY & FORM VALIDATION]
+ * Modal accesible de inscripción gratuita con validación en tiempo real,
+ * tipografía 'Syne' + 'Plus Jakarta Sans' y cero fuentes monoespaciadas.
+ */
 export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState<EnrollmentData>({
     fullName: '',
@@ -67,13 +72,13 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClos
       role="dialog"
       aria-modal="true"
       aria-labelledby="enrollment-modal-title"
-      className="fixed inset-0 z-9999 bg-[#111111]/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+      className="fixed inset-0 z-9999 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
     >
-      <div className="bg-[#F9F8F6] border border-[#111111]/20 max-w-2xl w-full p-8 md:p-10 rounded shadow-2xl relative my-8">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 max-w-2xl w-full p-8 md:p-10 rounded-3xl shadow-2xl relative my-8">
         <button
           type="button"
           onClick={handleReset}
-          className="absolute top-6 right-6 p-2 text-[#111111]/60 hover:text-[#111111] border border-[#111111]/10 rounded hover:border-[#B45309]"
+          className="absolute top-6 right-6 p-2 text-slate-500 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 rounded-full hover:border-[#005A9C] cursor-pointer"
           aria-label="Cerrar ventana de postulación"
         >
           <X className="w-5 h-5" />
@@ -81,22 +86,28 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClos
 
         {!isSubmitted ? (
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#B45309] mb-2 font-bold">
+            <div className="flex items-center gap-2 text-xs font-body uppercase tracking-widest text-[#008A00] dark:text-emerald-400 mb-2 font-extrabold">
               <GraduationCap className="w-4 h-4" />
-              <span>CONVOCATORIA ACADÉMICA MMXXVI</span>
+              <span>MATRÍCULA UNIVERSITARIA GRATUITA · MMXXVI</span>
             </div>
 
-            <h2 id="enrollment-modal-title" className="text-3xl font-serif-title font-medium text-[#111111]">
-              Postulación a la Cátedra Universitaria
+            <h2
+              id="enrollment-modal-title"
+              className="text-3xl font-display font-extrabold tracking-tight text-slate-900 dark:text-white"
+            >
+              Inscripción a Cursos NarrativaU
             </h2>
 
-            <p className="font-serif text-sm text-[#111111]/75 mt-2">
-              Ingresa tus datos para solicitar cupo en los seminarios sincrónicos y acceder al repositorio digital de manuscritos bíblicos en 8K.
+            <p className="font-body text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+              Ingresa tus datos para solicitar acceso gratuito a los seminarios sincrónicos y al repositorio digital de manuscritos bíblicos en 8K.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-5" noValidate>
+            <form onSubmit={handleSubmit} className="mt-7 space-y-5" noValidate>
               <div>
-                <label htmlFor="fullName" className="block text-xs font-mono uppercase tracking-wider text-[#111111]/70 mb-1.5">
+                <label
+                  htmlFor="fullName"
+                  className="block text-xs font-body font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                >
                   Nombre Completo *
                 </label>
                 <input
@@ -105,19 +116,24 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClos
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
-                  placeholder="Ej. Martín Heidegger o Sor Juana Inés"
-                  className={`w-full px-4 py-2.5 bg-white border rounded text-sm text-[#111111] placeholder:text-[#111111]/30 focus:outline-none focus:ring-1 focus:ring-[#B45309] ${
-                    errors.fullName ? 'border-red-600' : 'border-[#111111]/20'
+                  placeholder="Ej. Luisa Cajamarca"
+                  className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl text-sm font-body text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#005A9C] ${
+                    errors.fullName ? 'border-red-600' : 'border-slate-200 dark:border-slate-700'
                   }`}
                 />
                 {errors.fullName && (
-                  <p className="text-xs text-red-600 mt-1 font-sans">{errors.fullName}</p>
+                  <p className="text-xs text-red-600 mt-1 font-body font-medium">
+                    {errors.fullName}
+                  </p>
                 )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="email" className="block text-xs font-mono uppercase tracking-wider text-[#111111]/70 mb-1.5">
+                  <label
+                    htmlFor="email"
+                    className="block text-xs font-body font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                  >
                     Correo Institucional o Personal *
                   </label>
                   <input
@@ -126,18 +142,23 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClos
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="nombre@universidad.edu"
-                    className={`w-full px-4 py-2.5 bg-white border rounded text-sm text-[#111111] placeholder:text-[#111111]/30 focus:outline-none focus:ring-1 focus:ring-[#B45309] ${
-                      errors.email ? 'border-red-600' : 'border-[#111111]/20'
+                    placeholder="nombre@universidad.edu.co"
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl text-sm font-body text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#005A9C] ${
+                      errors.email ? 'border-red-600' : 'border-slate-200 dark:border-slate-700'
                     }`}
                   />
                   {errors.email && (
-                    <p className="text-xs text-red-600 mt-1 font-sans">{errors.email}</p>
+                    <p className="text-xs text-red-600 mt-1 font-body font-medium">
+                      {errors.email}
+                    </p>
                   )}
                 </div>
 
                 <div>
-                  <label htmlFor="university" className="block text-xs font-mono uppercase tracking-wider text-[#111111]/70 mb-1.5">
+                  <label
+                    htmlFor="university"
+                    className="block text-xs font-body font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                  >
                     Universidad o Centro de Estudio *
                   </label>
                   <input
@@ -146,19 +167,26 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClos
                     name="university"
                     value={formData.university}
                     onChange={handleChange}
-                    placeholder="Ej. Universidad de Buenos Aires"
-                    className={`w-full px-4 py-2.5 bg-white border rounded text-sm text-[#111111] placeholder:text-[#111111]/30 focus:outline-none focus:ring-1 focus:ring-[#B45309] ${
-                      errors.university ? 'border-red-600' : 'border-[#111111]/20'
+                    placeholder="Ej. Universidad Nacional de Colombia"
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl text-sm font-body text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#005A9C] ${
+                      errors.university
+                        ? 'border-red-600'
+                        : 'border-slate-200 dark:border-slate-700'
                     }`}
                   />
                   {errors.university && (
-                    <p className="text-xs text-red-600 mt-1 font-sans">{errors.university}</p>
+                    <p className="text-xs text-red-600 mt-1 font-body font-medium">
+                      {errors.university}
+                    </p>
                   )}
                 </div>
               </div>
 
               <div>
-                <label htmlFor="academicLevel" className="block text-xs font-mono uppercase tracking-wider text-[#111111]/70 mb-1.5">
+                <label
+                  htmlFor="academicLevel"
+                  className="block text-xs font-body font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                >
                   Nivel Académico *
                 </label>
                 <select
@@ -166,7 +194,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClos
                   name="academicLevel"
                   value={formData.academicLevel}
                   onChange={handleChange}
-                  className="w-full px-4 py-2.5 bg-white border border-[#111111]/20 rounded text-sm text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#B45309]"
+                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-body text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#005A9C]"
                 >
                   <option value="undergraduate">Estudiante de Pregrado / Licenciatura</option>
                   <option value="postgraduate">Estudiante de Maestría o Doctorado</option>
@@ -176,7 +204,10 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClos
               </div>
 
               <div>
-                <label htmlFor="researchInterest" className="block text-xs font-mono uppercase tracking-wider text-[#111111]/70 mb-1.5">
+                <label
+                  htmlFor="researchInterest"
+                  className="block text-xs font-body font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
+                >
                   Línea de Interés / Proyecto Exegético *
                 </label>
                 <textarea
@@ -186,22 +217,26 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClos
                   value={formData.researchInterest}
                   onChange={handleChange}
                   placeholder="Describe brevemente tus intereses: crítica textual, poética hebrea, literatura sapiencial, etc."
-                  className={`w-full px-4 py-2.5 bg-white border rounded text-sm text-[#111111] placeholder:text-[#111111]/30 focus:outline-none focus:ring-1 focus:ring-[#B45309] ${
-                    errors.researchInterest ? 'border-red-600' : 'border-[#111111]/20'
+                  className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl text-sm font-body text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#005A9C] ${
+                    errors.researchInterest
+                      ? 'border-red-600'
+                      : 'border-slate-200 dark:border-slate-700'
                   }`}
                 />
                 {errors.researchInterest && (
-                  <p className="text-xs text-red-600 mt-1 font-sans">{errors.researchInterest}</p>
+                  <p className="text-xs text-red-600 mt-1 font-body font-medium">
+                    {errors.researchInterest}
+                  </p>
                 )}
               </div>
 
-              <div className="pt-4 flex items-center justify-between gap-4 border-t border-[#111111]/10">
-                <span className="text-[11px] font-mono text-[#111111]/50">
-                  * Admisión libre para la comunidad universitaria
+              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 dark:border-slate-800">
+                <span className="text-xs font-body text-slate-500 dark:text-slate-400">
+                  * Admisión 100% libre para la comunidad universitaria
                 </span>
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-[#111111] hover:bg-[#B45309] text-white text-xs font-mono uppercase tracking-widest rounded transition-colors"
+                  className="w-full sm:w-auto px-7 py-3.5 bg-[#008A00] hover:bg-[#007000] text-white text-xs font-body font-extrabold uppercase tracking-widest rounded-xl btn-emerald-glow transition-all cursor-pointer"
                   data-cursor="ENVIAR"
                 >
                   Registrar Postulación
@@ -211,31 +246,32 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClos
           </div>
         ) : (
           <div className="text-center py-6">
-            <div className="w-14 h-14 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-14 h-14 bg-[#E6F5E6] text-[#008A00] rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-8 h-8" />
             </div>
 
-            <span className="text-xs font-mono uppercase tracking-widest text-[#B45309] font-bold">
+            <span className="text-xs font-body uppercase tracking-widest text-[#008A00] font-extrabold">
               POSTULACIÓN REGISTRADA EXITOSAMENTE
             </span>
 
-            <h3 className="text-3xl font-serif-title font-medium text-[#111111] mt-2">
+            <h3 className="text-3xl font-display font-extrabold tracking-tight text-slate-900 dark:text-white mt-2">
               Bienvenido a NarrativaU
             </h3>
 
-            <p className="font-serif text-sm text-[#111111]/80 max-w-md mx-auto mt-3">
-              Estimado(a) <strong className="text-[#111111]">{formData.fullName}</strong> ({formData.university}), tu solicitud ha sido radicada bajo el folio académico:
+            <p className="font-body text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto mt-3 leading-relaxed">
+              Estimado(a) <strong className="text-slate-900 dark:text-white">{formData.fullName}</strong> (
+              {formData.university}), tu solicitud ha sido radicada bajo el folio académico:
             </p>
 
-            <div className="my-6 p-4 bg-[#FFFFFF] border border-dashed border-[#B45309] rounded max-w-sm mx-auto font-mono text-sm text-[#B45309] font-bold">
+            <div className="my-6 p-4 bg-[#EBF3FA] dark:bg-slate-800 border border-[#005A9C]/30 rounded-2xl max-w-sm mx-auto font-display text-base text-[#005A9C] dark:text-[#38BDF8] font-extrabold tracking-wider tabular-nums">
               {submissionHash}
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 pt-6 border-t border-[#111111]/10">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
               <button
                 type="button"
                 onClick={handleReset}
-                className="w-full sm:w-auto px-6 py-2.5 bg-[#111111] text-white text-xs font-mono uppercase tracking-wider rounded hover:bg-[#B45309] transition-colors"
+                className="w-full sm:w-auto px-7 py-3 bg-[#005A9C] text-white text-xs font-body font-bold uppercase tracking-wider rounded-xl hover:bg-[#004578] transition-colors cursor-pointer"
               >
                 Volver al Sitio
               </button>

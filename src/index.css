@@ -1,57 +1,76 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
-    --font-cinzel: 'Cinzel', serif;
-    --font-fraunces: 'Fraunces', 'Cormorant Garamond', serif;
-    --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
-    --color-parchment: #F9F8F6;
-    --color-ink: #111111;
-    --color-gold: #B45309;
-    --color-terracotta: #C25E1A;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-editorial: 'Instrument Serif', Georgia, serif;
+    --color-cobalt: #005A9C;
+    --color-emerald: #008A00;
+    --color-paper: #FAFAFC;
   }
 
   body {
-    font-family: var(--font-jakarta);
-    background-color: var(--color-parchment);
-    color: var(--color-ink);
+    font-family: var(--font-body);
     overflow-x: hidden;
   }
 
-  h1, h2, h3, .font-serif-title {
-    font-family: var(--font-fraunces);
-  }
-
-  .font-monument {
-    font-family: var(--font-cinzel);
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
   }
 
   .font-body {
-    font-family: var(--font-jakarta);
+    font-family: var(--font-body);
+  }
+
+  .font-editorial {
+    font-family: var(--font-editorial);
   }
 }
 
-/* Subtle parchment paper grain overlay */
-.parchment-grain {
-  background-image: radial-gradient(rgba(180, 83, 9, 0.04) 1px, transparent 0);
-  background-size: 24px 24px;
+/* Textura de papel digital y retícula geométrica sutil (Modo Claro y Modo Oscuro) */
+.paper-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(0, 90, 156, 0.07) 1px, transparent 0);
+  background-size: 28px 28px;
 }
 
-/* Custom noise overlay */
-.manuscript-texture {
-  background-color: #F9F8F6;
-  background-image: 
-    radial-gradient(at 10% 20%, rgba(220, 190, 150, 0.12) 0px, transparent 50%),
-    radial-gradient(at 90% 80%, rgba(180, 83, 9, 0.08) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(245, 240, 230, 0.6) 0px, transparent 60%);
+.dark .paper-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(56, 189, 248, 0.07) 1px, transparent 0);
+  background-size: 28px 28px;
 }
 
-/* Clip-path reveals */
-.clip-hero-text {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+/* Mesh Gradient Premium (Awwwards Design Criterion) */
+.mesh-gradient-hero {
+  background: 
+    radial-gradient(at 15% 15%, rgba(0, 90, 156, 0.11) 0px, transparent 55%),
+    radial-gradient(at 85% 25%, rgba(0, 138, 0, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 85%, rgba(0, 90, 156, 0.05) 0px, transparent 60%);
 }
 
-/* Hide scrollbar for horizontal containers while preserving scroll functionality */
+.dark .mesh-gradient-hero {
+  background: 
+    radial-gradient(at 15% 15%, rgba(0, 90, 156, 0.25) 0px, transparent 55%),
+    radial-gradient(at 85% 25%, rgba(0, 138, 0, 0.16) 0px, transparent 50%),
+    radial-gradient(at 50% 85%, rgba(30, 58, 138, 0.2) 0px, transparent 60%);
+}
+
+/* Elevación y perspectiva 3D suave para tarjetas */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+/* Sombra Esmeralda de Alto Impacto */
+.btn-emerald-glow {
+  box-shadow: 0 12px 28px -6px rgba(0, 138, 0, 0.35), 0 4px 10px -2px rgba(0, 138, 0, 0.15);
+}
+.btn-emerald-glow:hover {
+  box-shadow: 0 18px 34px -6px rgba(0, 138, 0, 0.48), 0 6px 14px -2px rgba(0, 138, 0, 0.22);
+}
+
+/* Ocultar barra de scroll en contenedores horizontales */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -60,14 +79,8 @@
   scrollbar-width: none;
 }
 
-/* Text glow / illumination for the torchlight lantern effect */
-.torchlight-wrapper {
-  position: relative;
-  user-select: none;
-}
-
-/* Smooth transition for magnetic buttons */
+/* Transición elástica para botones magnéticos */
 .magnetic-btn {
   will-change: transform;
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
